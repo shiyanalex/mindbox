@@ -1,5 +1,5 @@
 const films = [
-  { title: "Inception", cover: "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjYxMl5BMl5BanBnXkFtZTcwODI5OTM0Mw@@._V1_UX200_CR0,0,200,300_AL_.jpg", imdb: "https://www.imdb.com/title/tt1375666/" },
+  { title: "Inception", cover: "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_QL75_UX380_CR0,0,380,562_.jpg", imdb: "https://www.imdb.com/title/tt1375666/" },
   { title: "The Matrix", cover: "https://m.media-amazon.com/images/M/MV5BNzQzZjYzMjAtMjE5My00ZjM0LWE3MzUtN2E3YzM0ZDM0NzA1XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_UX200_CR0,0,200,300_AL_.jpg", imdb: "https://www.imdb.com/title/tt0133093/" },
   { title: "The Godfather", cover: "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmYtYTAwZC00ZjQwLTg4MjEtNWZjNGQxYjBhYzI3XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_UX200_CR0,0,200,300_AL_.jpg", imdb: "https://www.imdb.com/title/tt0068646/" },
   { title: "Pulp Fiction", cover: "https://m.media-amazon.com/images/M/MV5BNGNhMDIzNjEtZmNhMC00ZTRkLWFmN2QtN2E5YTY3NzNlM2E4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX200_CR0,0,200,300_AL_.jpg", imdb: "https://www.imdb.com/title/tt0110912/" },
