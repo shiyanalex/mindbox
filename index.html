@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bracket Quiz</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <h1>Film Bracket Quiz</h1>
+    <div class="film-container">
+      <div class="film" id="film1">
+        <h2 id="title1"></h2>
+        <img id="cover1" src="" alt="Film Cover 1">
+        <button onclick="selectFilm(1)">Choose</button>
+      </div>
+      <div class="film" id="film2">
+        <h2 id="title2"></h2>
+        <img id="cover2" src="" alt="Film Cover 2">
+        <button onclick="selectFilm(2)">Choose</button>
+      </div>
+    </div>
+    <div id="winner" style="display: none;">
+      <h2>Winner: <span id="winnerTitle"></span></h2>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
