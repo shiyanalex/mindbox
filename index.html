@@ -1,34 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bracket Quiz</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Text Block Separator</title>
 </head>
 <body>
-  <div id="app">
-    <h1>Film Bracket Quiz</h1>
-    <div id="round-info"></div>
-    <div class="film-container">
-      <div class="film" id="film1" onclick="selectFilm(1)">
-        <h2 id="title1"></h2>
-        <img id="cover1" src="" alt="Film Cover 1">
-      </div>
-      <div class="film" id="film2" onclick="selectFilm(2)">
-        <h2 id="title2"></h2>
-        <img id="cover2" src="" alt="Film Cover 2">
-      </div>
-    </div>
-    <div id="winner" style="display: none;">
-      <h2>Winner: <span id="winnerTitle"></span></h2>
-      <img id="winnerCover" src="" alt="Winner Film Cover">
-      <br>
-      <a id="imdbLink" href="" target="_blank">
-        <button>Watch Now</button>
-      </a>
-    </div>
-  </div>
-  <script src="script.js"></script>
+
+  <textarea id="inputText" placeholder="Введите текст" rows="10" cols="50"></textarea>
+  <div id="outputText" style="margin-top: 20px;"></div>
+
+  <script>
+    // Получаем элементы
+    const inputText = document.getElementById('inputText');
+    const outputText = document.getElementById('outputText');
+
+    // Функция для разделения текста на блоки
+    function processText() {
+      const text = inputText.value;
+
+      // Разделяем текст по строкам
+      const lines = text.split('\n');
+
+      // Преобразуем каждую строку
+      const processedLines = lines.map(line => {
+        // Если строка пустая, заменяем на '.  '
+        if (line.trim() === '') {
+          return '.  ';
+        }
+        // Если строка заканчивается на два пробела, то разделяем её как отдельный блок
+        if (line.endsWith('  ')) {
+          return line.trim();
+        }
+        // В противном случае просто оставляем строку
+        return line.trim();
+      });
+
+      // Выводим обработанные строки в блок outputText
+      outputText.innerHTML = processedLines.join('<br>');
+    }
+
+    // Добавляем слушателя на изменения в inputText
+    inputText.addEventListener('input', processText);
+  </script>
+
 </body>
 </html>
