@@ -11,6 +11,15 @@ body {
 
 #app {
   text-align: center;
+  width: 80%;
+}
+
+#round-info {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .film-container {
@@ -22,6 +31,7 @@ body {
 .film {
   margin: 0 10px;
   text-align: center;
+  cursor: pointer;
 }
 
 .film img {
@@ -30,6 +40,12 @@ body {
   object-fit: cover;
   border: 2px solid #ccc;
   border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.film img:hover {
+  transform: scale(1.05);
+  border-color: #007BFF;
 }
 
 button {
@@ -44,4 +60,11 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+#winner img {
+  width: 300px;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 10px;
 }
