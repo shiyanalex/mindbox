@@ -1,47 +1,118 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Text Block Separator</title>
+  <title>Text Formatter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f9;
+    }
+
+    .container {
+      display: flex;
+      width: 80%;
+      max-width: 800px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      flex-direction: column;
+    }
+
+    .fields {
+      display: flex;
+      gap: 20px;
+    }
+
+    .field {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: monospace;
+      height: 200px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .button-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .copy-btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .copy-btn:hover {
+      background-color: #45a049;
+    }
+
+    .copy-btn:active {
+      background-color: #3e8e41;
+    }
+
+  </style>
 </head>
 <body>
 
-  <textarea id="inputText" placeholder="Введите текст" rows="10" cols="50"></textarea>
-  <div id="outputText" style="margin-top: 20px;"></div>
+  <div class="container">
+    <div class="fields">
+      <!-- Input Field -->
+      <textarea id="inputField" class="field" placeholder="Enter your text here..."></textarea>
+      
+      <!-- Output Field -->
+      <textarea id="outputField" class="field" readonly placeholder="Formatted text will appear here..."></textarea>
+    </div>
+
+    <!-- Copy to Clipboard Button -->
+    <div class="button-container">
+      <button class="copy-btn" onclick="copyToClipboard()">Copy to Clipboard</button>
+    </div>
+  </div>
 
   <script>
-    // Получаем элементы
-    const inputText = document.getElementById('inputText');
-    const outputText = document.getElementById('outputText');
+    // Function to process the input text
+    function formatText() {
+      let inputText = document.getElementById("inputField").value;
+      
+      // Replace all empty lines with ". "
+      let outputText = inputText.split("\n").map(line => {
+        return line.trim() === "" ? ". " : line;
+      }).join("\n");
 
-    // Функция для разделения текста на блоки
-    function processText() {
-      const text = inputText.value;
+      // Ensure exactly two spaces before each "\n"
+      outputText = outputText.replace(/([^\n])\n/g, "$1  \n");
 
-      // Разделяем текст по строкам
-      const lines = text.split('\n');
-
-      // Преобразуем каждую строку
-      const processedLines = lines.map(line => {
-        // Если строка пустая, заменяем на '.  '
-        if (line.trim() === '') {
-          return '.  ';
-        }
-        // Если строка заканчивается на два пробела, то разделяем её как отдельный блок
-        if (line.endsWith('  ')) {
-          return line.trim();
-        }
-        // В противном случае просто оставляем строку
-        return line.trim();
-      });
-
-      // Выводим обработанные строки в блок outputText
-      outputText.innerHTML = processedLines.join('<br>');
+      // Set the formatted output
+      document.getElementById("outputField").value = outputText;
     }
 
-    // Добавляем слушателя на изменения в inputText
-    inputText.addEventListener('input', processText);
+    // Function to copy the output text to clipboard
+    function copyToClipboard() {
+      let outputText = document.getElementById("outputField");
+      outputText.select();
+      outputText.setSelectionRange(0, 99999); // For mobile devices
+      document.execCommand("copy");
+    }
+
+    // Add event listener to automatically update the output when input changes
+    document.getElementById("inputField").addEventListener("input", formatText);
   </script>
 
 </body>
