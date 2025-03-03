@@ -1,0 +1,150 @@
+.game-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.game-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.game-subtitle {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.lives-counter {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.word-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 1rem;
+}
+
+.word-tile {
+    padding: 1rem;
+    text-align: center;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.word-tile:not(.yellow):not(.green):not(.blue):not(.purple):hover {
+    background-color: #f3f4f6;
+}
+
+.word-tile.selected {
+    background-color: #dbeafe;
+    border-color: #3b82f6;
+}
+
+.word-tile.yellow {
+    background-color: #fef3c7;
+    border-color: #f59e0b;
+    cursor: default;
+    pointer-events: none;
+}
+
+.word-tile.green {
+    background-color: #dcfce7;
+    border-color: #16a34a;
+    cursor: default;
+    pointer-events: none;
+}
+
+.word-tile.blue {
+    background-color: #dbeafe;
+    border-color: #3b82f6;
+    cursor: default;
+    pointer-events: none;
+}
+
+.word-tile.purple {
+    background-color: #f3e8ff;
+    border-color: #9333ea;
+    cursor: default;
+    pointer-events: none;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #3b82f6;
+    color: white;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    margin-bottom: 1rem;
+}
+
+.submit-button:hover {
+    background-color: #2563eb;
+}
+
+.submit-button:disabled {
+    background-color: #e5e7eb;
+    cursor: not-allowed;
+}
+
+.message {
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+.message.error {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+.message.success {
+    background-color: #dcfce7;
+    color: #16a34a;
+}
+
+.solved-groups {
+    margin-bottom: 2rem;
+}
+
+.group-item {
+    background-color: #f8fafc;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.group-pattern {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.group-words {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.instructions {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: #f8fafc;
+    border-radius: 0.5rem;
+}
+
+.remaining-groups {
+    margin-top: 2rem;
+}
