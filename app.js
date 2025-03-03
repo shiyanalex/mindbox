@@ -21,17 +21,26 @@ const WORD_GROUPS = [
     }
 ];
 
-function Instructions() {
+function Instructions({ onStart }) {
     try {
         return (
-            <div className="instructions" data-name="game-instructions">
-                <h2 className="text-lg font-bold mb-2">How to Play</h2>
-                <ul className="list-disc pl-5 space-y-1">
-                    <li>Find groups of four related words</li>
-                    <li>Select four words and submit your guess</li>
-                    <li>You have 4 lives to find all connections</li>
-                    <li>Wrong guesses cost one life</li>
-                </ul>
+            <div className="modal-overlay" data-name="instructions-modal">
+                <div className="modal-content">
+                    <h2 className="text-2xl font-bold mb-4">How to Play</h2>
+                    <ul className="list-disc pl-5 space-y-2 mb-6">
+                        <li>Find groups of four related words</li>
+                        <li>Select four words and submit your guess</li>
+                        <li>You have 4 lives to find all connections</li>
+                        <li>Wrong guesses cost one life</li>
+                    </ul>
+                    <button 
+                        className="start-button"
+                        onClick={onStart}
+                        data-name="start-button"
+                    >
+                        Start Game
+                    </button>
+                </div>
             </div>
         );
     } catch (error) {
@@ -90,6 +99,7 @@ function SolvedGroup({ pattern, words, color }) {
 
 function App() {
     try {
+        const [showInstructions, setShowInstructions] = React.useState(true);
         const [words, setWords] = React.useState(() => {
             const allWords = WORD_GROUPS.flatMap(group => group.words);
             return allWords.sort(() => Math.random() - 0.5);
@@ -146,6 +156,10 @@ function App() {
 
         return (
             <div className="game-container">
+                {showInstructions && (
+                    <Instructions onStart={() => setShowInstructions(false)} />
+                )}
+                
                 <header className="header" data-name="game-header">
                     <h1 className="game-title" data-name="game-title">Connections</h1>
                     <p className="game-subtitle" data-name="game-subtitle">
@@ -155,8 +169,6 @@ function App() {
                         Lives remaining: {lives}
                     </p>
                 </header>
-
-                <Instructions />
 
                 {message.text && (
                     <div className={`message ${message.type}`} data-name="game-message">

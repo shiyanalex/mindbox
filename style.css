@@ -35,20 +35,22 @@
 .word-tile {
     padding: 1rem;
     text-align: center;
-    border: 2px solid #e5e7eb;
+    border: 2px solid #EFEFE6;
     border-radius: 0.5rem;
     cursor: pointer;
     transition: all 0.2s;
     font-weight: 500;
+    background-color: #EFEFE6;
 }
 
 .word-tile:not(.yellow):not(.green):not(.blue):not(.purple):hover {
-    background-color: #f3f4f6;
+    filter: brightness(0.95);
 }
 
 .word-tile.selected {
-    background-color: #dbeafe;
-    border-color: #3b82f6;
+    background-color: #5A594E;
+    border-color: #5A594E;
+    color: white;
 }
 
 .word-tile.yellow {
@@ -138,11 +140,44 @@
     flex-wrap: wrap;
 }
 
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    max-width: 90%;
+    width: 500px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 .instructions {
     margin-bottom: 2rem;
-    padding: 1rem;
-    background-color: #f8fafc;
+}
+
+.start-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #3b82f6;
+    color: white;
     border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.start-button:hover {
+    background-color: #2563eb;
 }
 
 .remaining-groups {
