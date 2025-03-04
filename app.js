@@ -1,108 +1,9 @@
-const WORD_GROUPS = [
-    {
-        pattern: "Types of Weather",
-        words: ["RAIN", "SNOW", "STORM", "WIND"],
-        color: "yellow"
-    },
-    {
-        pattern: "Musical Instruments",
-        words: ["PIANO", "GUITAR", "VIOLIN", "DRUMS"],
-        color: "green"
-    },
-    {
-        pattern: "Celestial Bodies",
-        words: ["SUN", "MOON", "STAR", "PLANET"],
-        color: "blue"
-    },
-    {
-        pattern: "Body Parts",
-        words: ["HEAD", "HAND", "FOOT", "HEART"],
-        color: "purple"
-    }
-];
-
-function Instructions({ onStart }) {
-    try {
-        return (
-            <div className="modal-overlay" data-name="instructions-modal">
-                <div className="modal-content">
-                    <h2 className="text-2xl font-bold mb-4">How to Play</h2>
-                    <ul className="list-disc pl-5 space-y-2 mb-6">
-                        <li>Find groups of four related words</li>
-                        <li>Select four words and submit your guess</li>
-                        <li>You have 4 lives to find all connections</li>
-                        <li>Wrong guesses cost one life</li>
-                    </ul>
-                    <button 
-                        className="start-button"
-                        onClick={onStart}
-                        data-name="start-button"
-                    >
-                        Start Game
-                    </button>
-                </div>
-            </div>
-        );
-    } catch (error) {
-        console.error('Instructions component error:', error);
-        reportError(error);
-        return null;
-    }
-}
-
-function WordTile({ word, isSelected, status, onClick }) {
-    try {
-        const classes = [
-            'word-tile',
-            isSelected ? 'selected' : '',
-            status || ''
-        ].filter(Boolean).join(' ');
-
-        return (
-            <div 
-                className={classes}
-                onClick={onClick}
-                data-name="word-tile"
-            >
-                {word}
-            </div>
-        );
-    } catch (error) {
-        console.error('WordTile component error:', error);
-        reportError(error);
-        return null;
-    }
-}
-
-function SolvedGroup({ pattern, words, color }) {
-    try {
-        return (
-            <div className="group-item" data-name="solved-group">
-                <div className="group-pattern" data-name="group-pattern">{pattern}</div>
-                <div className="group-words" data-name="group-words">
-                    {words.map((word, index) => (
-                        <WordTile
-                            key={index}
-                            word={word}
-                            status={color}
-                        />
-                    ))}
-                </div>
-            </div>
-        );
-    } catch (error) {
-        console.error('SolvedGroup component error:', error);
-        reportError(error);
-        return null;
-    }
-}
-
 function App() {
     try {
         const [showInstructions, setShowInstructions] = React.useState(true);
         const [words, setWords] = React.useState(() => {
             const allWords = WORD_GROUPS.flatMap(group => group.words);
-            return allWords.sort(() => Math.random() - 0.5);
+            return shuffleArray(allWords);
         });
 
         const [selectedWords, setSelectedWords] = React.useState([]);
@@ -124,17 +25,31 @@ function App() {
             });
         };
 
-        const checkSelection = () => {
-            return WORD_GROUPS.find(group => 
-                selectedWords.every(word => group.words.includes(word)) &&
-                !solvedGroups.includes(group)
-            );
+        const handleShuffle = () => {
+            setWords(prev => shuffleArray([...prev]));
+            setSelectedWords([]); // Automatically deselect when shuffling
+        };
+
+        const handleDeselectAll = () => {
+            setSelectedWords([]);
+        };
+
+        const checkSelectionMatch = () => {
+            for (const group of WORD_GROUPS) {
+                if (solvedGroups.includes(group)) continue;
+                
+                if (selectedWords.length === 4 && 
+                    selectedWords.every(word => group.words.includes(word))) {
+                    return group;
+                }
+            }
+            return null;
         };
 
         const handleSubmit = () => {
             if (selectedWords.length !== 4) return;
 
-            const correctGroup = checkSelection();
+            const correctGroup = checkSelectionMatch();
             if (correctGroup) {
                 setSolvedGroups(prev => [...prev, correctGroup]);
                 setWords(prev => prev.filter(word => !selectedWords.includes(word)));
@@ -165,9 +80,8 @@ function App() {
                     <p className="game-subtitle" data-name="game-subtitle">
                         Find groups of four related words
                     </p>
-                    <p className="lives-counter" data-name="lives-counter">
-                        Lives remaining: {lives}
-                    </p>
+                    <LivesCounter lives={lives} />
+                    <DarkModeToggle />
                 </header>
 
                 {message.text && (
@@ -194,14 +108,31 @@ function App() {
                                 />
                             ))}
                         </div>
-                        <button
-                            className="submit-button"
-                            onClick={handleSubmit}
-                            disabled={selectedWords.length !== 4}
-                            data-name="submit-button"
-                        >
-                            Submit
-                        </button>
+                        <div className="button-group" data-name="game-buttons">
+                            <button
+                                className="game-button shuffle-button"
+                                onClick={handleShuffle}
+                                data-name="shuffle-button"
+                            >
+                                Shuffle
+                            </button>
+                            <button
+                                className="game-button submit-button"
+                                onClick={handleSubmit}
+                                disabled={selectedWords.length !== 4}
+                                data-name="submit-button"
+                            >
+                                Submit
+                            </button>
+                            <button
+                                className="game-button deselect-button"
+                                onClick={handleDeselectAll}
+                                disabled={selectedWords.length === 0}
+                                data-name="deselect-button"
+                            >
+                                Deselect All
+                            </button>
+                        </div>
                     </div>
                 )}
 
